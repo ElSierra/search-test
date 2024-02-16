@@ -6,19 +6,15 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import { Home } from "./home";
 export const router = createBrowserRouter([
   {
     path: "/",
+  
     element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
-      </div>
+      <Home/>
     ),
   },
-  {
-    path: "about",
-    element: <div>About</div>,
-  },
+ 
 ]);
 

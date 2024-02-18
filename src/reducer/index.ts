@@ -12,7 +12,7 @@ export function reducer(state: AuthorState, action: AuthorAction) {
     case "ADD":
       return {
         ...state,
-        authors: [...state.authors, action.payload],
+        authors: [...state.authors, ...action.payload],
       };
     case "NEW_SEARCH":
       return {

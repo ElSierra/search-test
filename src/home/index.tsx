@@ -23,7 +23,7 @@ export const Home = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
+          setPage((prevPage) => prevPage + 10);
         }
       },
       { threshold: 1.0 }
@@ -42,7 +42,8 @@ export const Home = () => {
     const loadAuthors = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}?q=${search}&page=${page}`);
+        const response = await axios.get(`${API_URL}?q=${search}&offset=${page}&limit=${10}`);
+        console.log("🚀 ~ loadAuthors ~ response:", response)
         if (page === 1) {
           dispatch({ type: "NEW_SEARCH", payload: response.data.docs });
         } else {

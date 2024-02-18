@@ -42,8 +42,10 @@ export const Home = () => {
     const loadAuthors = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}?q=${search}&offset=${page}&limit=${10}`);
-        console.log("🚀 ~ loadAuthors ~ response:", response)
+        const response = await axios.get(
+          `${API_URL}?q=${search}&offset=${page}&limit=${10}`
+        );
+        console.log("🚀 ~ loadAuthors ~ response:", response);
         if (page === 1) {
           dispatch({ type: "NEW_SEARCH", payload: response.data.docs });
         } else {
@@ -61,9 +63,9 @@ export const Home = () => {
   }, [search, page]);
 
   return (
-    <div className="w-full  justify-center p-10">
-      <form className="fixed top-0 left-0 right-0 p-10 ">
-        <h1>Search for Authors</h1>
+    <div className=" w-screen justify-center p-10  ">
+      <form className="fixed top-0 left-0 right-0 p-10 bg-black ">
+        <h1 className="sm:text-3xl text-[20px]">Search for Authors</h1>
         <div className="flex">
           <input
             className="w-full bg-gray-900 p-4 my-2 rounded-lg   "
@@ -73,16 +75,32 @@ export const Home = () => {
           />
         </div>
       </form>
-      <div className="pt-40">
-        {state.authors.map((author: { name: string }, index: any) => {
-          return (
-            <div className="flex" key={index}>
-              <div className="bg-gray-900 p-4 my-2 rounded-lg ">
-                {author.name}
+      <div className="pt-40 w-full">
+        {state.authors.map(
+          (author: { name: string; top_work: string }, index: any) => {
+            return (
+              <div
+                className="flex flex-col bg-gray-900 w-full gap-2 p-4 my-2 rounded-lg "
+                key={index}
+              >
+                <div className=" flex self-start p-2 rounded-sm">
+                  {author.name}
+                </div>
+                <div className="bg-blue-900 flex rounded-lg p-2 flex-col w-full">
+                  <div className="p-1 bg-blue-100 rounded-sm flex self-start">
+                    <p className="text-black text-sm font-semibold">
+                      Known for
+                    </p>
+                  </div>
+
+                  <div className="flex capitalize font-extrabold">
+                    <p>{author.top_work}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          }
+        )}
       </div>
       {loading && <div>Loading...</div>}
       <div ref={bottom} />
